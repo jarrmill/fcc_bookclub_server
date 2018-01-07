@@ -7,6 +7,8 @@ const app = express();
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 
+//export const Grid = require('gridfs-stream');
+//export const GridFS = Grid(mongoose.connection.db, mongoose.mongo);
 const uristring = process.env.MONGODB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:auth/auth';
 const router = require('./router');
 app.set('port', (process.env.PORT || 3091));
@@ -21,16 +23,16 @@ app.set('port', (process.env.PORT || 3091));
     audience: 'https://pacific-scrubland-65914.herokuapp.com/nightlife',
     issuer: "https://jmillie.auth0.com/",
     algorithms: ['RS256']
-});
+});*/
 
-app.use(jwtCheck);*/
+//app.use(jwtCheck);
 app.use(cors());
-app.use(bodyParser.json({ type: '*/*'}));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('./uploads'));
+//app.use(bodyParser.json({ type: '*/*', limit: '2mb'}));
+//app.use(bodyParser.urlencoded({extended: true}));
 
 // views is directory for all template files
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+
 
 mongoose.connect(uristring, function(err, res){
   if (err) {
